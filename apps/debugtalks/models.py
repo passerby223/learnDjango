@@ -14,6 +14,7 @@ class DebugTalks(BaseModel):
         db_table = 'tb_debugtalks'
         verbose_name = 'debugtalk.py文件'
         verbose_name_plural = verbose_name
+        ordering = ['id']
 
     def __str__(self):
         return self.name

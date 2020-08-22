@@ -87,7 +87,6 @@ class ProjectsViewSet(ModelViewSet):
         # datas = serializer.data
         # datas = get_count_by_project(datas)
         # return Response(datas)
-        print(1/0)
         response = super().list(request, *args, **kwargs)
         response.data['results'] = get_count_by_project(response.data['results'])
 

@@ -13,6 +13,7 @@ class Envs(BaseModel):
         db_table = 'tb_envs'
         verbose_name = '环境信息'
         verbose_name_plural = verbose_name
+        ordering = ['id']
 
     def __str__(self):
         return self.name

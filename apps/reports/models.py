@@ -16,6 +16,7 @@ class Reports(BaseModel):
         db_table = 'tb_reports'
         verbose_name = '测试报告'
         verbose_name_plural = verbose_name
+        ordering = ['id']
 
     def __str__(self):
         return self.name

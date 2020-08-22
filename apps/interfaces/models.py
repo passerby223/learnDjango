@@ -15,6 +15,7 @@ class Interfaces(BaseModel):
         db_table = 'tb_interfaces'
         verbose_name = '接口信息'
         verbose_name_plural = verbose_name
+        ordering = ['id']
 
     def __str__(self):
         return self.name

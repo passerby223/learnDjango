@@ -17,6 +17,7 @@ class Testcases(BaseModel):
         db_table = 'tb_testcases'
         verbose_name = '用例信息'
         verbose_name_plural = verbose_name
+        ordering = ['id']
 
     def __str__(self):
         return self.name

@@ -17,6 +17,7 @@ class Configures(BaseModel):
         db_table = 'tb_configures'
         verbose_name = '配置信息'
         verbose_name_plural = verbose_name
+        ordering = ['id']
 
     def __str__(self):
         return self.name
