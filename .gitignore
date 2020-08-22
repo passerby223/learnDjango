@@ -6,6 +6,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea
+LearnDjango/config.ini
 
 # C extensions
 *.so
