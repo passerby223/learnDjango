@@ -18,7 +18,7 @@ import datetime
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 配置文件
-config = configparser.ConfigParser()
+config = configparser.RawConfigParser()
 config.read(os.path.join(BASE_DIR, 'LearnDjango/config.ini'))
 
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
