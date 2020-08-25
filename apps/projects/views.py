@@ -22,7 +22,7 @@ from utils import common
 class ProjectsViewSet(ModelViewSet):
     """
     list:
-    返回项目(多个)列表数据
+    返回项目(多个)列表数据(包含项目下的聚合数据：接口数,用例数,套件数,配置数)
 
     create:
     创建项目
