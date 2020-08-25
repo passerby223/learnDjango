@@ -1,16 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
--------------------------------------------------
-  @Time : 2019/11/4 21:14 
-  @Auth : 可优
-  @File : base_model.py
-  @IDE  : PyCharm
-  @Motto: ABC(Always Be Coding)
-  @Email: keyou100@qq.com
-  @Company: 湖南省零檬信息技术有限公司
-  @Copyright: 柠檬班
--------------------------------------------------
-"""
 from django.db import models
 
 
@@ -23,7 +11,7 @@ class BaseModel(models.Model):
     is_delete = models.BooleanField(default=False, verbose_name="逻辑删除", help_text="逻辑删除")
 
     class Meta:
-        # 为抽象模型类, 用于其他模型来继承，数据库迁移时不会创建BaseModel表
+        # 定义为抽象模型类, 用于其他模型来继承，数据库迁移时不会创建BaseModel表
         abstract = True
         verbose_name = "公共字段表"
         db_table = 'BaseModel'

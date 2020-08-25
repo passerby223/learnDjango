@@ -64,26 +64,33 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     # 默认响应渲染类
-    # 'DEFAULT_RENDERER_CLASSES': (
-    #     # json渲染器为第一优先级
-    #     'rest_framework.renderers.JSONRenderer',
-    #     # 可浏览的API渲染器为第二优先级
-    #     'rest_framework.renderers.BrowsableAPIRenderer',
-    # ),
-    'DEFAULT_FILTER_BACKENDS':['rest_framework.filters.OrderingFilter',
-                               'django_filters.rest_framework.backends.DjangoFilterBackend'],
+    'DEFAULT_RENDERER_CLASSES': (
+        # json渲染器为第一优先级
+        'rest_framework.renderers.JSONRenderer',
+        # 可浏览的API渲染器为第二优先级
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    # 全局指定django-filter过滤引擎
+    'DEFAULT_FILTER_BACKENDS':[
+        # 排序过滤引擎
+        'rest_framework.filters.OrderingFilter',
+        # 过滤引擎
+        'django_filters.rest_framework.backends.DjangoFilterBackend'
+    ],
     # 在全局指定分页的引擎
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    # 'DEFAULT_PAGINATION_CLASS': 'utils.pagination.PageNumberPaginationManual',
     'DEFAULT_PAGINATION_CLASS': 'utils.pagination.PageNumberPaginationManual',
-    'PAGE_SIZE': 10,
     # 同时必须指定每页显示的条数
-    # 'PAGE_SIZE': 3,
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'PAGE_SIZE': 10,
+    # 全局设置权限为：只允许经过身份验证的用户访问，对所有类视图有效
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.IsAuthenticated',
     # ],
+    # 指定用于支持coreapi的schema,用于生成测试平台的接口文档(会在drf>=3.12版本中移除，官方推荐使用drf-yasg)
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    # 设置认证为：token认证和session认证，最上边的认证方式优先级最高
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 指定使用JWT token认证
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication'

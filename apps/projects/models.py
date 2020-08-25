@@ -13,10 +13,17 @@ class Projects(BaseModel):
     desc = models.CharField('简要描述', max_length=200, null=True, blank=True, default='', help_text='简要描述')
 
     class Meta:
+        # 修改表名
         db_table = 'tb_projects'
+        # 设置在admin站点中的显示表名，在英文表名下表现为单数形式
         verbose_name = '项目信息'
+        # 在英文表名下表现为复数形式，会自动在英文表名后边加一个`s`
         verbose_name_plural = verbose_name
+        # 添加view视图中进行查询操作时默认排序字段，如果不指定，在进行查询操作时会抛出warning
         ordering = ['id']
 
     def __str__(self):
+        '''
+        # 重写__str__()方法，使admin后台中展示model中定义的name
+        '''
         return self.name

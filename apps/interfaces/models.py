@@ -6,6 +6,7 @@ from utils.base_models import BaseModel
 class Interfaces(BaseModel):
     id = models.AutoField(verbose_name='id主键', primary_key=True, help_text='id主键')
     name = models.CharField('接口名称', max_length=200, unique=True, help_text='接口名称')
+    # 在projects的视图类中可以通过`project_id`作为外键字段来引用，ps：获取单个project下的interfaces列表数据
     project = models.ForeignKey('projects.Projects', on_delete=models.CASCADE,
                                 related_name='interfaces', help_text='所属项目')
     tester = models.CharField('测试人员', max_length=50, help_text='测试人员')
