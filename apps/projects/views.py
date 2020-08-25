@@ -80,10 +80,7 @@ class ProjectsViewSet(ModelViewSet):
     '''
     @action(methods=['get'], detail=False)
     def names(self, request, *args, **kwargs):
-        '''
-        1.使用get_queryset()获取查询集的所有数据
-        get_queryset()方法获取到的是重写后的`queryset`类属性
-        '''
+        # 1.使用get_queryset()获取查询集的所有数据;get_queryset()方法获取到的是重写后的`queryset`类属性
         queryset = self.get_queryset()
         '''
         2.获取序列化器类并传入查询集实例(因为返回的查询集是多条数据，需要设置many=True)
@@ -97,25 +94,23 @@ class ProjectsViewSet(ModelViewSet):
 
     @action(methods=['get'], detail=True)
     def interfaces(self, request, pk=None):
-        '''
-        获取单个project下的所有interfaces列表数据
-        这里为什么要使用project_id?
-        因为project_id是interfaces表的外键字段，关联着projects表的id字段
-        '''
+        # 获取单个project下的所有interfaces列表数据
+        # 这里为什么要使用project_id?
+        # 因为project_id是interfaces表的外键字段，关联着projects表的id字段
         interface_objs = Interfaces.objects.filter(project_id=pk, is_delete=False)
-        one_list = []
-        for obj in interface_objs:
-            one_list.append({
-                'id': obj.id,
-                'name': obj.name
-            })
-        # return Response(data=one_list)
         '''
         此处不能使用self.get_serializer(),如果使用它获取到的是ProjectModelSerializer序列化器,而不是InterfacesByProjectIdSerializer序列化器
         但是我们只需要返回project下所有interfaces接口的ID和name即可,不需要全部返回。所以使用下边的方法返回数据。
         '''
         # serializer = serializers.InterfacesByProjectIdSerializer(instance=self.get_object())
         # return Response(serializer.data)
+        one_list = []
+        for obj in interface_objs:
+            one_list.append({
+                'id': obj.id,
+                'name': obj.name
+            })
+        return Response(data=one_list)
 
     def list(self, request, *args, **kwargs):
         # queryset = self.filter_queryset(self.get_queryset())
@@ -133,7 +128,6 @@ class ProjectsViewSet(ModelViewSet):
         # return Response(datas)
         response = super().list(request, *args, **kwargs)
         response.data['results'] = get_count_by_project(response.data['results'])
-
         return response
 
     # def get_serializer_class(self):
