@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
--------------------------------------------------
-  @Time : 2019/6/29 17:35 
-  @Auth : 可优
-  @File : validates.py
-  @IDE  : PyCharm
-  @Motto: ABC(Always Be Coding)
--------------------------------------------------
-"""
+
 from rest_framework import serializers
 
 from projects.models import Projects

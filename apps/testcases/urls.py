@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
--------------------------------------------------
-  @Time : 2019/6/30 9:20 
-  @Auth : 可优
-  @File : urls.py
-  @IDE  : PyCharm
-  @Motto: ABC(Always Be Coding)
--------------------------------------------------
-"""
+
 from django.urls import path
 from rest_framework import routers
 

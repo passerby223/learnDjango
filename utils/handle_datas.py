@@ -1,16 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
--------------------------------------------------
-  @Time : 2019/11/4 14:11 
-  @Auth : 可优
-  @File : handle_datas.py
-  @IDE  : PyCharm
-  @Motto: ABC(Always Be Coding)
-  @Email: keyou100@qq.com
-  @Company: 湖南省零檬信息技术有限公司
-  @Copyright: 柠檬班
--------------------------------------------------
-"""
+
 # 第一种:
 # 将[{'check': 'status_code', 'expected':200, 'comparator': 'equals'}]
 # 转化为 [{key: 'status_code', value: 200, comparator: 'equals', param_type: 'string'}],

@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
--------------------------------------------------
-  @Time : 2019/6/30 8:52 
-  @Auth : 可优
-  @File : serializers.py
-  @IDE  : PyCharm
-  @Motto: ABC(Always Be Coding)
--------------------------------------------------
-"""
+
 from rest_framework import serializers
 
 from .models import Envs

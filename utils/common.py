@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
--------------------------------------------------
-  @Time : 2019/7/4 19:50 
-  @Auth : 可优
-  @File : common.py
-  @IDE  : PyCharm
-  @Motto: ABC(Always Be Coding)
--------------------------------------------------
-"""
+
 import os
 import io
 import logging

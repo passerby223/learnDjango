@@ -10,6 +10,7 @@ class InterfacesSerializer(serializers.ModelSerializer):
     接口序列化器
     """
     project = serializers.StringRelatedField(help_text='项目名称')
+    # 如果使用了PrimaryKeyRelatedField会自动将前端传入的projectId转化为Projects模型类对象
     project_id = serializers.PrimaryKeyRelatedField(queryset=Projects.objects.all(), help_text='项目ID')
 
     class Meta:
