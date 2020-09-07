@@ -224,7 +224,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, "logs/mytest.log"),  # 日志文件的位置
+            'filename': os.path.join(BASE_DIR, "logs/server.log"),  # 日志文件的位置
             'maxBytes': 100 * 1024 * 1024,
             'backupCount': 10,
             'formatter': 'verbose'
