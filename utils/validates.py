@@ -21,7 +21,7 @@ def whether_existed_project_id(value):
 
 def whether_existed_interface_id(value):
     """
-    检查项目id是否存在
+    检查接口id是否存在
     :param value:
     :return:
     """
