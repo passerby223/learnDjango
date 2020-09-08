@@ -101,6 +101,7 @@ def generate_testcase_files(instance, env, testcase_dir_path):
             # config_request = eval(config_obj.request)
             config_request.get('config').get('request').setdefault('base_url', env.base_url)
             config_request['config']['name'] = instance.name
+            # 如果用例中config不为空则覆盖全局的config
             testcases_list[0] = config_request
 
     # 如果include前置中有testcases, 那么添加到testcases_list中
