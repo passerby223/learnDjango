@@ -9,6 +9,7 @@ from datetime import datetime
 
 from django.conf import settings
 from httprunner.api import HttpRunner
+# from httprunner.task import HttpRunner
 from httprunner.exceptions import ParamsError
 from rest_framework import status
 from rest_framework.response import Response
