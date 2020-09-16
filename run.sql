@@ -302,3 +302,197 @@ from students as s
 -- JOIN查询需要先确定主表，然后把另一个表的数据“附加”到结果集上；
 -- INNER JOIN是最常用的一种JOIN查询，它的语法是SELECT ... FROM <表1> INNER JOIN <表2> ON <条件...>；
 -- JOIN查询仍然可以使用WHERE条件和ORDER BY排序。
+
+-- 修改数据
+-- 关系数据库的基本操作就是增删改查，即CRUD：Create、Retrieve、Update、Delete。
+-- 对于增、删、改，对应的SQL语句分别是：
+-- INSERT：插入新记录；
+-- UPDATE：更新已有记录；
+-- DELETE：删除已有记录。
+-- 修改数据-insert插入数据
+-- INSERT语句的基本语法：INSERT INTO <表名> (字段1, 字段2, ...) VALUES (值1, 值2, ...);
+-- 向students表插入一条新记录
+insert into students (class_id, name, gender, score)
+values (2, '小花花', 'F', 93);
+-- 查看是否插入数据成功
+SELECT *
+FROM students;
+-- 这里我们并没有列出id字段，也没有列出id字段对应的值，这是因为id字段是一个自增主键，它的值可以由数据库自己推算出来。此外，如果一个字段有默认值，那么在INSERT语句中也可以不出现。
+-- 要注意，字段顺序不必和数据库表的字段顺序一致，但值的顺序必须和字段顺序一致。也就是说，可以写INSERT INTO students (score, gender, name, class_id) ...，但是对应的VALUES就得变成(80, 'M', '大牛', 2)。
+-- 一次性插入多条数据
+insert into students (class_id, name, gender, score)
+values (1, '熊大', 'M', 86),
+       (3, '熊二', 'M', 79),
+       (2, '翠花', 'F', 83);
+-- 查看是否插入数据成功
+SELECT *
+FROM students;
+-- 小结
+-- 使用INSERT，我们就可以一次向一个表中插入一条或多条记录。
+
+-- 修改数据-update更新数据
+-- UPDATE语句的基本语法：UPDATE <表名> SET 字段1=值1, 字段2=值2, ... WHERE ...;
+-- 更新students表id=1的记录的name和score这两个字段，先写出UPDATE students SET name='大牛', score=66，然后在WHERE子句中写出需要更新的行的筛选条件id=1
+update students
+set name='啦啦啦',
+    score=65
+where id = 1;
+-- 查看更新数据是否成功
+SELECT *
+FROM students
+WHERE id = 1;
+-- 更新id=5,6,7的记录
+update students
+set name='小牛',
+    score=65
+where id >= 5
+  and id <= 7;
+-- 查询并观察更新结果:
+SELECT *
+FROM students;
+-- 在UPDATE语句中，更新字段时可以使用表达式。例如，把所有80分以下的同学的成绩加10分
+update students
+set score=score + 10
+where score < 70;
+-- 如果WHERE条件没有匹配到任何记录，UPDATE语句不会报错，也不会有任何记录被更新。
+-- 更新id=999的记录
+UPDATE students
+SET score=100
+WHERE id = 999;
+-- 查询并观察结果:
+SELECT *
+FROM students;
+-- 更新整表中某个字段的值
+UPDATE students
+SET score=60;
+-- 小结
+-- 使用UPDATE，我们就可以一次更新表中的一条或多条记录。
+
+-- 修改数据-delete删除数据
+-- DELETE语句的基本语法：DELETE FROM <表名> WHERE ...;
+-- 删除id=1的记录
+delete
+from students
+where id = 1;
+-- 查询并观察结果:
+SELECT *
+FROM students;
+-- 删除id=5,6,7的记录
+DELETE
+FROM students
+WHERE id >= 5
+  AND id <= 7;
+-- 查询并观察结果:
+SELECT *
+FROM students;
+-- 如果WHERE条件没有匹配到任何记录，DELETE语句不会报错，也不会有任何记录被删除。
+-- 删除id=999的记录
+DELETE
+FROM students
+WHERE id = 999;
+-- 查询并观察结果:
+SELECT *
+FROM students;
+-- 不带WHERE条件的DELETE语句会删除整个表的数据
+DELETE
+FROM students;
+-- 小结
+-- 使用DELETE，我们就可以一次删除表中的一条或多条记录。
+
+-- MySQL
+-- MySQL Client的可执行程序是mysql，MySQL Server的可执行程序是mysqld
+-- 小结
+-- 命令行程序mysql实际上是MySQL客户端，真正的MySQL服务器程序是mysqld，在后台运行。
+
+-- MySQL-管理MySQL
+-- 列出所有数据库
+SHOW DATABASES;
+-- 其中，information_schema、mysql、performance_schema和sys是系统库，不要去改动它们。其他的是用户创建的数据库。
+-- 创建数据库
+create database mytest default character set utf8mb4;
+-- 查看创建库的SQL语句
+show create database mytest;
+-- 删除数据库:注意,删除一个数据库将导致该数据库的所有表全部被删除。
+drop database mytest;
+-- 对一个数据库进行操作时，要首先将其切换为当前数据库
+use test;
+-- 列出当前数据库的所有表
+show tables;
+-- 查看一个表的结构
+desc students;
+-- 查看创建表的SQL语句
+show create table students;
+-- 删除表使用DROP TABLE语句
+drop table students;
+-- 修改表
+-- 给students表新增一列birth
+alter table students
+    add column birth varchar(20) not null;
+-- 修改birth列，把列名改为birthday，类型改为VARCHAR(30)
+alter table students
+    change column birth birthday varchar(30) not null;
+-- 删除列
+alter table students
+    drop column birthday;
+
+-- MySQL-实用sql语句
+-- 插入或替换
+-- 如果我们希望插入一条新记录（INSERT），但如果记录已经存在，就先删除原记录，再插入新记录。此时，可以使用REPLACE语句，这样就不必先查询，再决定是否先删除再插入：
+REPLACE INTO students (id, class_id, name, gender, score)
+VALUES (1, 1, '小明', 'F', 99);
+-- 若id=1的记录不存在，REPLACE语句将插入新记录，否则，当前id=1的记录将被删除，然后再插入新记录。
+
+-- 插入或更新
+-- 如果我们希望插入一条新记录（INSERT），但如果记录已经存在，就更新该记录，此时，可以使用INSERT INTO ... ON DUPLICATE KEY UPDATE ...语句：
+INSERT INTO students (id, class_id, name, gender, score)
+VALUES (1, 1, '小明', 'F', 99)
+ON DUPLICATE KEY UPDATE name='小明',
+                        gender='F',
+                        score=99;
+-- 若id=1的记录不存在，INSERT语句将插入新记录，否则，当前id=1的记录将被更新，更新的字段由UPDATE指定。
+
+-- 插入或忽略
+-- 如果我们希望插入一条新记录（INSERT），但如果记录已经存在，就啥事也不干直接忽略，此时，可以使用INSERT IGNORE INTO ...语句：
+-- INSERT IGNORE INTO students (id, class_id, name, gender, score) VALUES (1, 1, '小明', 'F', 99);
+-- 若id=1的记录不存在，INSERT语句将插入新记录，否则，不执行任何操作。
+
+-- 快照
+-- 如果想要对一个表进行快照，即复制一份当前表的数据到一个新表，可以结合CREATE TABLE和SELECT：
+-- 对class_id=1的记录进行快照，并存储为新表students_of_class1:
+CREATE TABLE students_of_class1
+SELECT *
+FROM students
+WHERE class_id = 1;
+-- 查询操作是否成功
+select *
+from students_of_class1;
+-- 新创建的表结构和SELECT使用的表结构完全一致。
+
+-- 写入查询结果集
+-- 如果查询结果集需要写入到表中，可以结合INSERT和SELECT，将SELECT语句的结果集直接插入到指定表中。
+-- 例如，创建一个统计成绩的表score_statistics，记录各班的平均成绩
+CREATE TABLE score_statistics
+(
+    id       BIGINT NOT NULL AUTO_INCREMENT,
+    class_id BIGINT NOT NULL,
+    average  DOUBLE NOT NULL,
+    PRIMARY KEY (id)
+) engine = InnoDB
+  default charset = utf8mb4;
+-- 然后，我们就可以用一条语句写入各班的平均成绩
+INSERT INTO score_statistics (class_id, average)
+SELECT class_id, AVG(score)
+FROM students
+GROUP BY class_id;
+-- 确保INSERT语句的列和SELECT语句的列能一一对应，就可以在statistics表中直接保存查询的结果
+SELECT *
+FROM score_statistics;
+
+-- 强制使用指定索引
+-- 在查询的时候，数据库系统会自动分析查询语句，并选择一个最合适的索引。但是很多时候，数据库系统的查询优化器并不一定总是能使用最优索引。
+-- 如果我们知道如何选择索引，可以使用FORCE INDEX强制查询使用指定的索引。例如：
+SELECT *
+FROM students FORCE INDEX (idx_class_id)
+WHERE class_id = 1
+ORDER BY id DESC;
+-- 指定索引的前提是索引idx_class_id必须存在。
