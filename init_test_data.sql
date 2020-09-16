@@ -1,5 +1,5 @@
 -- 如果test数据库不存在，就创建test数据库：
-CREATE DATABASE IF NOT EXISTS test charset utf8;
+CREATE DATABASE IF NOT EXISTS test charset utf8mb4;
 
 -- 切换到test数据库
 USE test;
@@ -15,7 +15,7 @@ CREATE TABLE classes
     name VARCHAR(100) NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- 创建students表：
 CREATE TABLE students
@@ -27,7 +27,7 @@ CREATE TABLE students
     score    INT          NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 -- 插入classes记录：
 INSERT INTO classes(id, name)
